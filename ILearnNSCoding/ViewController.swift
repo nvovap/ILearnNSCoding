@@ -66,12 +66,14 @@ class ViewController: UIViewController {
 
     
     //MARK: - Arhiver and Save data
-    func dataFilePath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+    func dataFilePath() -> URL {
+       // let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         
-        let documentDirectory = paths[0] as NSString
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         
-        return documentDirectory.appendingPathComponent("data.archive") as String
+        let documentDirectory = paths[0]
+        
+        return documentDirectory.appendingPathComponent("data.archive")
     }
     
     
@@ -83,7 +85,9 @@ class ViewController: UIViewController {
         
         let path = dataFilePath()
         print(path)
-        data.write(toFile: path, atomically: true)
+        //data.write(toFile: path, atomically: true)
+        data.write(to: path, atomically: true)
+        
     }
     
     
